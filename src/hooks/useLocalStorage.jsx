@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const PREFIX = "codepen-clone-";
 
-const useLocalStorage = ({ key, initialValue }) => {
+const useLocalStorage = (key, initialValue) => {
+  console.log("key", key);
   const prefixedKey = PREFIX + key;
   const [value, setValue] = useState(null);
   useEffect(() => {
-    const data = localStorage.getItem(key);
+    const data = localStorage.getItem(prefixedKey);
     if (data !== null) {
-      return setValue(data);
+      return setValue(JSON.parse(data));
     }
     if (typeof initialValue === "function") {
-      returnsetValue(initialValue());
+      return setValue(initialValue());
     }
     setValue(initialValue);
   }, []);
